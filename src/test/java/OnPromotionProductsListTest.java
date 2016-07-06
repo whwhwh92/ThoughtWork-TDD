@@ -18,7 +18,8 @@ public class OnPromotionProductsListTest {
         initMocks(this);
     }
     @Test
-    public void should_return_true_when_product_is_apple_given_it_is_on_promotion_list() throws Exception {
+    public void should_return_true_when_product_is_apple_and_cokacola_given_they_are_on_promotion_list() throws
+            Exception {
         Product apple = new Product("apple");
         Product cokacola = new Product("cokacola");
 
@@ -33,7 +34,7 @@ public class OnPromotionProductsListTest {
     }
 
     @Test
-    public void should_return_false_when_product_is_cokacola_given_it_is_not_on_promotion_list() throws Exception {
+    public void should_return_false_when_product_is_hammer_given_it_is_not_on_promotion_list() throws Exception {
         Product hammer = new Product("hammer");
 
         addProductsToPromotionList("apple");

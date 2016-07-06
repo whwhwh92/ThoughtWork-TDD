@@ -10,6 +10,7 @@ public class OnPromotionProductsList {
 
     private List<PromotionProduct> promotionProductList = new ArrayList<>();
 
+    // Seems this is interface provided to test code only for now
     public OnPromotionProductsList(List<PromotionProduct> promotionProductList) {
         this.promotionProductList = promotionProductList;
     }
