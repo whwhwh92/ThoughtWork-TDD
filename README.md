@@ -60,17 +60,17 @@ Congyu: Init project with gradle init --type java-library
 * Java
 * Gradle（构建工具，会使用即可）
 * TDD（要练）
+* Intellij（快捷键是提高效率必备)
 
-## 工具
+## 推荐的工具集
 
-* Intellij
-* 
+一时忘了要推荐什么，想了解什么的直接找我，我再更新。
 
 ## 参考书籍
 * TDD：[Kent Beck: Test-Driven Development 测试驱动开发](http://pan.baidu.com/s/1bpFRINX)
 * 重构：[Martin Fowler: 重构——改善既有代码的设计](http://pan.baidu.com/s/1bpFRINX)
 * 设计模式：[程杰：大话设计模式](http://pan.baidu.com/s/1bpFRINX)
 
-## 推荐的工具集
-
 ## 如何使用Gradle从零构建工具（选读）
+
+啊更文档好累。有兴趣的直接来找我学吧。
