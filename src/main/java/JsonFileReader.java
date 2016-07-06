@@ -15,6 +15,7 @@ public class JsonFileReader {
 
     private String getJsonFileContentAsString(String jsonFileName) throws IOException {
         File jsonFile = new File(this.getClass().getClassLoader().getResource(jsonFileName).getFile());
+
         return FileUtils.readFileToString(jsonFile, "UTF-8");
     }
 
