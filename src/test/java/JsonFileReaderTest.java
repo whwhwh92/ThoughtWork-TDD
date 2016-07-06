@@ -1,10 +1,8 @@
 import com.google.gson.JsonObject;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Matchers.notNull;
 
 public class JsonFileReaderTest {
     @Test
@@ -12,7 +10,10 @@ public class JsonFileReaderTest {
         JsonFileReader jsonFileReader = new JsonFileReader();
 
         JsonObject jsonObject = jsonFileReader.read("promotion-products-list.json");
+        JsonObject firstProductOnPromotion = jsonObject.get("promotion").getAsJsonObject().get("buy_three_free_one").getAsJsonArray().get(0).getAsJsonObject();
 
-        assertThat(jsonObject.get("promotion"), instanceOf(Object.class));
+        assertThat(firstProductOnPromotion.get("barcode").getAsString(), is("ITEM000000"));
+        assertThat(firstProductOnPromotion.get("name").getAsString(), is("cokacola"));
+        assertThat(firstProductOnPromotion.get("price").getAsDouble(), is(3.00));
     }
 }
