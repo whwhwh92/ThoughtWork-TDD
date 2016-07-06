@@ -1,16 +1,26 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class OnPromotionProductsListTest {
 
     private OnPromotionProductsList onPromotionProductsList;
+    private List<PromotionProduct> promotionProducts;
 
     @Before
     public void setUp() throws Exception {
-        onPromotionProductsList = new OnPromotionProductsList();
+        initMocks(this);
+        promotionProducts = new ArrayList<>();
+        PromotionProduct apple = new PromotionProduct();
+        apple.setProductName("apple");
+        promotionProducts.add(apple);
+        onPromotionProductsList = new OnPromotionProductsList(promotionProducts);
     }
 
     @Test
