@@ -11,6 +11,8 @@ public class PromotionCalculator {
     }
 
     public double calculateDiscount(Product product, int quantity) {
-        return 2;
+        int numberOfProductsOfferedFreeDiscount = quantity / 3;
+
+        return 2 * numberOfProductsOfferedFreeDiscount;
     }
 }
