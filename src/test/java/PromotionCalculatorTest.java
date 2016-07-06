@@ -2,8 +2,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -50,20 +50,22 @@ public class PromotionCalculatorTest {
     }
 
     @Test
-    public void should_return_2_when_buying_3_apples_each_with_price_2_and_one_get_offered_free_discount() throws Exception {
-        Product apple = new Product("apple");
-
-        double discount = promotionCalculator.calculateDiscount(apple, 3);
-
-        assertThat(discount, is(2.00));
-    }
-
-    @Test
     public void should_return_4_when_buying_7_apples_each_with_price_2_and_two_get_offered_free_discount() throws Exception {
         Product apple = new Product("apple");
+        apple.setPrice(2.00);
 
         double discount = promotionCalculator.calculateDiscount(apple, 7);
 
         assertThat(discount, is(4.00));
+    }
+
+    @Test
+    public void should_return_10_when_buying_3_apples_each_with_price_10_and_three_get_offered_free_discount() throws Exception {
+        Product apple = new Product("apple");
+        apple.setPrice(10.00);
+
+        double discount = promotionCalculator.calculateDiscount(apple, 3);
+
+        assertThat(discount, is(10.00));
     }
 }
