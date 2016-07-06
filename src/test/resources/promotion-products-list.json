@@ -1,0 +1,22 @@
+{
+  "promotion": {
+    "buy_three_free_one": [
+      {
+        "barcode": "ITEM000000",
+        "name": "cokacola",
+        "unit": "瓶",
+        "category": "食品",
+        "subCategory": "碳酸饮料",
+        "price": 3.00
+      },
+      {
+        "barcode": "ITEM000001",
+        "name": "apple",
+        "unit": "个",
+        "category": "食品",
+        "subCategory": "水果",
+        "price": 2.00
+      }
+    ]
+  }
+}
