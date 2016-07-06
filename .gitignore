@@ -6,3 +6,4 @@
 
 # Gradle build files
 .gradle
+build
