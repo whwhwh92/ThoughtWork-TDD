@@ -11,7 +11,7 @@ public class JsonFileReaderTest {
     public void should_return_json_object_read_from_file_when_specified_one_file_to_read() throws Exception {
         JsonFileReader jsonFileReader = new JsonFileReader();
 
-        JsonObject jsonObject = jsonFileReader.read("promotion-products-list.json").toJson();
+        JsonObject jsonObject = jsonFileReader.read("promotion-products-list.json");
 
         assertThat(jsonObject.get("promotion"), instanceOf(Object.class));
     }
