@@ -1,5 +1,5 @@
 public class PromotionCalculator {
-    public boolean checkIfProductIsInDiscountList(Product product) {
-        return false;
+    public boolean checkIfProductCanBeOfferedADiscount(Product product, int quantity) {
+        return quantity >= 3 ? true : false;
     }
 }
