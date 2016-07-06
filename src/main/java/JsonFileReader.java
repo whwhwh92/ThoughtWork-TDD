@@ -7,17 +7,15 @@ import java.io.IOException;
 
 public class JsonFileReader {
 
-    private String fileContent = "";
+    public JsonObject read(String jsonFileName) throws IOException {
+        String fileContent = getJsonFileContentAsString(jsonFileName);
 
-    public JsonFileReader read(String jsonFileName) throws IOException {
-        File jsonFile = new File(this.getClass().getClassLoader().getResource(jsonFileName).getFile());
-        this.fileContent = FileUtils.readFileToString(jsonFile, "UTF-8");
-
-        return this;
-    }
-
-    public JsonObject toJson() {
-        System.out.println("fileContent: " + fileContent);
         return new JsonParser().parse(fileContent).getAsJsonObject();
     }
+
+    private String getJsonFileContentAsString(String jsonFileName) throws IOException {
+        File jsonFile = new File(this.getClass().getClassLoader().getResource(jsonFileName).getFile());
+        return FileUtils.readFileToString(jsonFile, "UTF-8");
+    }
+
 }
