@@ -10,7 +10,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class PromotionCalculatorTest {
 
     private PromotionCalculator promotionCalculator;
-    @Mock private PromotionProductsMaintainer promotionProductsMaintainer;
+    @Mock
+    private PromotionProductsMaintainer promotionProductsMaintainer;
 
     @Before
     public void setUp() throws Exception {
@@ -46,5 +47,14 @@ public class PromotionCalculatorTest {
         boolean shouldBeOfferedDiscount = promotionCalculator.checkIfProductCanBeOfferedADiscount(cokacola, 3);
 
         assertThat(shouldBeOfferedDiscount, is(false));
+    }
+
+    @Test
+    public void should_return_2_when_buying_3_apples_each_with_price_2_and_one_get_offered_free_discount() throws Exception {
+        Product apple = new Product("apple");
+
+        double discount = promotionCalculator.calculateDiscount(apple, 3);
+
+        assertThat(discount, is(2.00));
     }
 }
