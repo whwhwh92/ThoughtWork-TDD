@@ -10,6 +10,9 @@ idea.project {
 }
 
 dependencies {
+    compile 'commons-io:commons-io:2.5'
+    compile 'com.google.code.gson:gson:2.7'
+
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.9.5'
 }
