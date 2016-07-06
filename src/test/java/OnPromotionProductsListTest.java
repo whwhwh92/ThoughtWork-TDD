@@ -24,9 +24,9 @@ public class OnPromotionProductsListTest {
 
     @Test
     public void should_return_false_when_product_is_cokacola_given_it_is_not_on_promotion_list() throws Exception {
-        Product cokacola = new Product("cokacola");
+        Product hammer = new Product("hammer");
 
-        boolean onPromotionList = onPromotionProductsList.contains(cokacola);
+        boolean onPromotionList = onPromotionProductsList.contains(hammer);
 
         assertThat(onPromotionList, is(false));
     }
