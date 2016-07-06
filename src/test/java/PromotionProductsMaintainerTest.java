@@ -8,9 +8,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class OnPromotionProductsListTest {
+public class PromotionProductsMaintainerTest {
 
-    private OnPromotionProductsList onPromotionProductsList;
+    private PromotionProductsMaintainer promotionProductsMaintainer;
     private List<PromotionProduct> promotionProducts = new ArrayList<>();
 
     @Before
@@ -24,10 +24,10 @@ public class OnPromotionProductsListTest {
         Product cokacola = new Product("cokacola");
 
         addProductsToPromotionList("apple", "cokacola");
-        onPromotionProductsList = new OnPromotionProductsList(promotionProducts);
+        promotionProductsMaintainer = new PromotionProductsMaintainer(promotionProducts);
 
-        boolean appleOnPromotion = onPromotionProductsList.contains(apple);
-        boolean cokacolaOnPromotion = onPromotionProductsList.contains(cokacola);
+        boolean appleOnPromotion = promotionProductsMaintainer.contains(apple);
+        boolean cokacolaOnPromotion = promotionProductsMaintainer.contains(cokacola);
 
         assertThat(appleOnPromotion, is(true));
         assertThat(cokacolaOnPromotion, is(true));
@@ -38,9 +38,9 @@ public class OnPromotionProductsListTest {
         Product hammer = new Product("hammer");
 
         addProductsToPromotionList("apple");
-        onPromotionProductsList = new OnPromotionProductsList(promotionProducts);
+        promotionProductsMaintainer = new PromotionProductsMaintainer(promotionProducts);
 
-        boolean onPromotionList = onPromotionProductsList.contains(hammer);
+        boolean onPromotionList = promotionProductsMaintainer.contains(hammer);
 
         assertThat(onPromotionList, is(false));
     }

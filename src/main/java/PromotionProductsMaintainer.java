@@ -6,16 +6,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnPromotionProductsList {
+public class PromotionProductsMaintainer {
 
     private List<PromotionProduct> promotionProductList = new ArrayList<>();
 
     // Seems this is interface provided to test code only for now
-    public OnPromotionProductsList(List<PromotionProduct> promotionProductList) {
+    public PromotionProductsMaintainer(List<PromotionProduct> promotionProductList) {
         this.promotionProductList = promotionProductList;
     }
 
-    public OnPromotionProductsList() throws IOException {
+    public PromotionProductsMaintainer() throws IOException {
         readListOfPromotionProductFromFile("promotion-products-list.json");
     }
 
