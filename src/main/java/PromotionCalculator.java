@@ -11,6 +11,8 @@ public class PromotionCalculator {
     }
 
     public double calculateDiscount(Product product, int quantity) {
+        if (quantity < 3) return 0.0;
+
         int numberOfProductsOfferedFreeDiscount = quantity / 3;
 
         return product.getPrice() * numberOfProductsOfferedFreeDiscount;

@@ -1,3 +1,4 @@
+import com.sun.javafx.css.CalculatedValue;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -67,5 +68,14 @@ public class PromotionCalculatorTest {
         double discount = promotionCalculator.calculateDiscount(apple, 3);
 
         assertThat(discount, is(10.00));
+    }
+
+    @Test
+    public void should_return_0_when_buying_less_than_3_apples() throws Exception {
+        Product apple = new Product("apple");
+
+        double discount = promotionCalculator.calculateDiscount(apple, 2);
+
+        assertThat(discount, is(0.0));
     }
 }
