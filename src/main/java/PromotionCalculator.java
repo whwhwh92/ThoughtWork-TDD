@@ -10,7 +10,8 @@ public class PromotionCalculator {
         return promotionProductsMaintainer.contains(product) && quantity >= 3;
     }
 
-    public double calculateDiscount(Product product, int quantity) {
+    public double calculateDiscount(Product product, int quantity) throws GivenProductNotApplicableForPromotionException {
+        if (!promotionProductsMaintainer.contains(product)) throw new GivenProductNotApplicableForPromotionException();
         if (quantity < 3) return 0.0;
 
         int numberOfProductsOfferedFreeDiscount = quantity / 3;

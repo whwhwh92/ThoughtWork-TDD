@@ -53,6 +53,7 @@ public class PromotionCalculatorTest {
     @Test
     public void should_return_4_when_buying_7_apples_each_with_price_2_and_two_get_offered_free_discount() throws Exception {
         Product apple = new Product("apple");
+        given(promotionProductsMaintainer.contains(apple)).willReturn(true);
         apple.setPrice(2.00);
 
         double discount = promotionCalculator.calculateDiscount(apple, 7);
@@ -63,6 +64,7 @@ public class PromotionCalculatorTest {
     @Test
     public void should_return_10_when_buying_3_apples_each_with_price_10_and_three_get_offered_free_discount() throws Exception {
         Product apple = new Product("apple");
+        given(promotionProductsMaintainer.contains(apple)).willReturn(true);
         apple.setPrice(10.00);
 
         double discount = promotionCalculator.calculateDiscount(apple, 3);
@@ -73,9 +75,18 @@ public class PromotionCalculatorTest {
     @Test
     public void should_return_0_when_buying_less_than_3_apples() throws Exception {
         Product apple = new Product("apple");
+        given(promotionProductsMaintainer.contains(apple)).willReturn(true);
 
         double discount = promotionCalculator.calculateDiscount(apple, 2);
 
         assertThat(discount, is(0.0));
+    }
+
+    @Test(expected = GivenProductNotApplicableForPromotionException.class)
+    public void should_throw_exception_when_attempting_to_get_promotion_given_buying_product_is_not_on_promotion_list() throws Exception {
+        Product apple = new Product("apple");
+        given(promotionProductsMaintainer.contains(apple)).willReturn(false);
+
+        promotionCalculator.calculateDiscount(apple, 3);
     }
 }
