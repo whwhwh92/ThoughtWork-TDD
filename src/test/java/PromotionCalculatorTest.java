@@ -57,4 +57,13 @@ public class PromotionCalculatorTest {
 
         assertThat(discount, is(2.00));
     }
+
+    @Test
+    public void should_return_4_when_buying_7_apples_each_with_price_2_and_two_get_offered_free_discount() throws Exception {
+        Product apple = new Product("apple");
+
+        double discount = promotionCalculator.calculateDiscount(apple, 7);
+
+        assertThat(discount, is(4.00));
+    }
 }
