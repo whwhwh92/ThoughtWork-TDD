@@ -6,7 +6,7 @@ repositories {
 }
 
 idea.project {
-    vcs = 'Git' 
+    vcs = 'Git'
 }
 
 dependencies {
