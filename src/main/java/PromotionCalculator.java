@@ -14,8 +14,10 @@ public class PromotionCalculator {
         if (!promotionProductsMaintainer.contains(product)) throw new GivenProductNotApplicableForPromotionException();
         if (quantity < 3) return 0.0;
 
-        int numberOfProductsOfferedFreeDiscount = quantity / 3;
+        return product.getPrice() * getNumberOfProductsApplicableForPromotion(quantity);
+    }
 
-        return product.getPrice() * numberOfProductsOfferedFreeDiscount;
+    private int getNumberOfProductsApplicableForPromotion(int quantity) {
+        return quantity / 3;
     }
 }
