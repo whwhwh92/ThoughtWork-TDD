@@ -26,17 +26,39 @@ git push -u origin 分支名 # 分支名与上一步相同，比如: git push -u
 ## 如何提交
 
 ### 正常的提交代码工作流
+
 ```bash
 git add .  # 先将更改的文件添加到git的管理，'.'表示全部添加
 git commit # 将已经add的文件进行commit（提交），这个操作会让git真正记录提交
-git push   # 将已经commit的文件push（推送）到远端仓库，这会让其他人能够看到你的提交```
+git push   # 将已经commit的文件push（推送）到远端仓库，这会让其他人能够看到你的提交
+```
+
+### Commit提交信息
+
+在执行 `git commit` 的时候弹出的是vim编辑界面，不熟悉的话可以自行搜索。进入编辑的话，是先按 `i` 进入编辑模式，然后开始编辑，编辑完成后，依次按 `esc` `:` `wq` `回车` 完成并退出编辑。这步初次操作可能不熟，自己练熟，有问题可以找我。
+
+提交信息格式见下面。
+
+```bash
+Your_name: Commit message body
+```
+
+下面举几个例子：
+
+```bash 
+Wanghuan: Remove gradle generated LibraryTest
+Shihao: Add a test: reader should read json from file
+Congyu: Init project with gradle init --type java-library
+```
 
 ## 技术栈
+
 * Java
 * Gradle（构建工具，会使用即可）
 * TDD（要练）
 
 ## 工具
+
 * Intellij
 * 
 
