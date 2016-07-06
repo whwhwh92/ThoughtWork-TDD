@@ -9,4 +9,8 @@ public class PromotionCalculator {
     public boolean checkIfProductCanBeOfferedADiscount(Product product, int quantity) {
         return promotionProductsMaintainer.contains(product) && quantity >= 3;
     }
+
+    public double calculateDiscount(Product product, int quantity) {
+        return 2;
+    }
 }
