@@ -1,3 +1,5 @@
+import domain.Product;
+
 public class PromotionCalculator {
 
     private PromotionProductsMaintainer promotionProductsMaintainer;

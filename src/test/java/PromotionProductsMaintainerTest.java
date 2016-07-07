@@ -1,3 +1,5 @@
+import domain.Product;
+import domain.PromotionProduct;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +19,7 @@ public class PromotionProductsMaintainerTest {
     public void setUp() throws Exception {
         initMocks(this);
     }
+
     @Test
     public void should_return_true_when_product_is_apple_and_cokacola_given_they_are_on_promotion_list() throws
             Exception {

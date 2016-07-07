@@ -1,4 +1,4 @@
-import com.sun.javafx.css.CalculatedValue;
+import domain.Product;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

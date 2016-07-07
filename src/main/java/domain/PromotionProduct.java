@@ -1,3 +1,5 @@
+package domain;
+
 public class PromotionProduct {
     private String barcode;
     private String productName;
