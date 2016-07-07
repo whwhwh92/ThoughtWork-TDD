@@ -1,4 +1,5 @@
 import domain.Product;
+import exception.GivenProductNotApplicableForPromotionException;
 
 public class PromotionCalculator {
 
