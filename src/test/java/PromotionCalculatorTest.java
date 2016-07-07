@@ -1,5 +1,5 @@
 import domain.Product;
-import exception.GivenProductNotApplicableForPromotionException;
+import exception.ProductNotApplicableForPromotionException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -83,7 +83,7 @@ public class PromotionCalculatorTest {
         assertThat(discount, is(0.0));
     }
 
-    @Test(expected = GivenProductNotApplicableForPromotionException.class)
+    @Test(expected = ProductNotApplicableForPromotionException.class)
     public void should_throw_exception_when_attempting_to_get_promotion_given_buying_product_is_not_on_promotion_list() throws Exception {
         Product apple = new Product("apple");
         given(promotionProductsMaintainer.contains(apple)).willReturn(false);

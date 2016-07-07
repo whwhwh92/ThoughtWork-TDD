@@ -1,5 +1,5 @@
 import domain.Product;
-import exception.GivenProductNotApplicableForPromotionException;
+import exception.ProductNotApplicableForPromotionException;
 
 public class PromotionCalculator {
 
@@ -13,8 +13,8 @@ public class PromotionCalculator {
         return promotionProductsMaintainer.contains(product) && quantity >= 3;
     }
 
-    public double calculateDiscount(Product product, int quantity) throws GivenProductNotApplicableForPromotionException {
-        if (!promotionProductsMaintainer.contains(product)) throw new GivenProductNotApplicableForPromotionException();
+    public double calculateDiscount(Product product, int quantity) throws ProductNotApplicableForPromotionException {
+        if (!promotionProductsMaintainer.contains(product)) throw new ProductNotApplicableForPromotionException();
         if (quantity < 3) return 0.0;
 
         return product.getPrice() * getNumberOfProductsApplicableForPromotion(quantity);
