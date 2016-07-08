@@ -16,6 +16,7 @@ public class ParserTest {
 
     private static final String JSON_GOODS = "goods.json";
     private static final String JSON_OFFER = "offer.json";
+    private static final String JSON_CART = "cart.json";
 
     private static InputStream getStream(String res) {
         return Parser.class.getClassLoader()
@@ -72,5 +73,17 @@ public class ParserTest {
 
         assertTrue(offer.check(ParserTest.genOfferGoods()));
         assertFalse(offer.check(ParserTest.genNonOfferGoods()));
+    }
+
+    @Test
+    public void should_parse_cart_with_right_barcode_from_json_file()
+            throws Exception {
+        Cart cart = Parser.readCartFromJsonStream(
+                ParserTest.getStream(JSON_CART));
+
+        assertEquals(3, cart.getItemCount());
+        assertEquals(3, cart.getQuantity("ITEM000001"));
+        assertEquals(2, cart.getQuantity("ITEM000003"));
+        assertEquals(5, cart.getQuantity("ITEM000005"));
     }
 }
