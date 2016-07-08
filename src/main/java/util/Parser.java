@@ -9,6 +9,7 @@ import info.Offer;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
@@ -17,6 +18,10 @@ import java.util.HashMap;
  */
 public class Parser {
 
+    public static Reader createUtf8Reader(InputStream in) {
+        return new InputStreamReader(in, Charset.forName("UTF-8"));
+    }
+
     public static HashMap<String, Goods> readGoodsFromJsonStream(InputStream in) {
         HashMap<String, Goods> goodsMap = new HashMap<>();
 
@@ -24,7 +29,7 @@ public class Parser {
         JsonParser jsonParser = new JsonParser();
 
         JsonArray jsonGoodsArray = jsonParser.parse(
-                new InputStreamReader(in, Charset.forName("UTF-8")))
+                Parser.createUtf8Reader(in))
                 .getAsJsonArray();
         for (int i = 0; i < jsonGoodsArray.size(); ++i) {
             JsonObject jsonGoods = jsonGoodsArray.get(i)
@@ -43,7 +48,7 @@ public class Parser {
         JsonParser jsonParser = new JsonParser();
 
         JsonObject jsonOffer = jsonParser.parse(
-                new InputStreamReader(in, Charset.forName("UTF-8")))
+                Parser.createUtf8Reader(in))
                 .getAsJsonArray().get(0)
                 .getAsJsonObject();
 
