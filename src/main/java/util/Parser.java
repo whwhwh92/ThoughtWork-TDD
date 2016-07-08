@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * Created by Sora on 2016/7/8.
  */
-public class GoodsParser {
+public class Parser {
 
     public static HashMap<String, Goods> readFromJsonStream(InputStream in) {
         HashMap<String, Goods> goodsMap = new HashMap<>();

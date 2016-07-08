@@ -11,20 +11,20 @@ import static org.junit.Assert.*;
 /**
  * Created by Sora on 2016/7/8.
  */
-public class GoodsParserTest {
+public class ParserTest {
 
     private static final String JSON_GOODS = "goods.json";
 
     private static InputStream getStream(String res) {
-        return GoodsParser.class.getClassLoader()
+        return Parser.class.getClassLoader()
                 .getResourceAsStream(res);
     }
 
     @Test
     public void should_parse_right_goods_info_from_json_file()
             throws Exception {
-        HashMap<String, Goods> goodsMap = GoodsParser.readFromJsonStream(
-                GoodsParserTest.getStream(JSON_GOODS));
+        HashMap<String, Goods> goodsMap = Parser.readFromJsonStream(
+                ParserTest.getStream(JSON_GOODS));
         assertEquals(6, goodsMap.size());
 
         Goods goods = goodsMap.get("ITEM000003");
