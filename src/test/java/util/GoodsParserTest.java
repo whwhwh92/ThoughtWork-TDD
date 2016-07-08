@@ -16,7 +16,8 @@ public class GoodsParserTest {
     private static final String JSON_GOODS = "goods.json";
 
     private static InputStream getStream(String res) {
-        return GoodsParser.class.getResourceAsStream(res);
+        return GoodsParser.class.getClassLoader()
+                .getResourceAsStream(res);
     }
 
     @Test
@@ -31,9 +32,9 @@ public class GoodsParserTest {
 
         assertEquals("ITEM000003", goods.getBarcode());
         assertEquals("苹果", goods.getName());
-        assertEquals("食品", goods.getCategory);
-        assertEquals("水果", goods.getSubCategory);
-        assertEquals("斤", goods.getUnit);
+        assertEquals("食品", goods.getCategory());
+        assertEquals("水果", goods.getSubCategory());
+        assertEquals("斤", goods.getUnit());
         assertEquals(5.50f, goods.getPrice(), 0.001f);
     }
 
