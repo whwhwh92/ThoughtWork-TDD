@@ -1,6 +1,7 @@
 package util;
 
 import info.Goods;
+import info.Offer;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -59,6 +60,8 @@ public class ParserTest {
         goods.setSubCategory("Ë®¹û");
         goods.setUnit("½ï");
         goods.setPrice(5.50f);
+
+        return goods;
     }
 
     @Test

@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import info.Goods;
+import info.Offer;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,7 +17,7 @@ import java.util.HashMap;
  */
 public class Parser {
 
-    public static HashMap<String, Goods> readFromJsonStream(InputStream in) {
+    public static HashMap<String, Goods> readGoodsFromJsonStream(InputStream in) {
         HashMap<String, Goods> goodsMap = new HashMap<>();
 
         Gson gson = new Gson();
@@ -36,4 +37,26 @@ public class Parser {
         return goodsMap;
     }
 
+    public static Offer readOfferFromJsonStream(InputStream in) {
+        Offer offer = new Offer();
+
+        JsonParser jsonParser = new JsonParser();
+
+        JsonObject jsonOffer = jsonParser.parse(
+                new InputStreamReader(in, Charset.forName("UTF-8")))
+                .getAsJsonArray().get(0)
+                .getAsJsonObject();
+
+        if (jsonOffer.get("type").getAsString()
+                .equals("BUY_THREE_GET_ONE_FREE")) {
+            JsonArray jsonBarcodes = jsonOffer.get("barcodes")
+                    .getAsJsonArray();
+            for (int i = 0; i < jsonBarcodes.size(); ++i) {
+                String barcode = jsonBarcodes.get(i).getAsString();
+                offer.add(barcode);
+            }
+        }
+
+        return offer;
+    }
 }
