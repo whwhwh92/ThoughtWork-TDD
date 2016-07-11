@@ -17,4 +17,15 @@ public class Offer {
     public boolean check(Goods goods) {
         return barcodeSet.contains(goods.getBarcode());
     }
+
+    public float calcDiscount(Item item) {
+        float dist = 0.0f;
+
+        if (this.check(item.getGoods())) {
+            dist = item.getGoods().getPrice()
+                    * (item.getQuantity() / 3);
+        }
+
+        return dist;
+    }
 }
