@@ -1,5 +1,6 @@
 package util;
 
+import info.Cart;
 import info.Goods;
 import info.Offer;
 import org.junit.Test;

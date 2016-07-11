@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import info.Cart;
 import info.Goods;
 import info.Offer;
 
@@ -63,5 +64,35 @@ public class Parser {
         }
 
         return offer;
+    }
+
+    public static Cart readCartFromJsonStream(InputStream in) {
+        Cart cart = new Cart();
+
+        JsonParser jsonParser =  new JsonParser();
+
+        JsonArray jsonBarcodeArray = jsonParser.parse(
+                Parser.createUtf8Reader(in))
+                .getAsJsonArray();
+
+        for (int i = 0; i < jsonBarcodeArray.size(); ++i) {
+            String item = jsonBarcodeArray.get(i).getAsString();
+
+            String barcode;
+            int count = 0;
+
+            int pos = item.indexOf('-');
+            if (pos > 0) {
+                barcode = item.substring(0, pos);
+                count = Integer.valueOf(item.substring(pos + 1));
+            } else {
+                barcode = item;
+                count = 1;
+            }
+
+            cart.addItem(barcode, count);
+        }
+
+        return cart;
     }
 }
