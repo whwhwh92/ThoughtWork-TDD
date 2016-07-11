@@ -68,7 +68,8 @@ public class Parser {
         return offer;
     }
 
-    public static Cart readCartFromJsonReader(Reader reader) {
+    public static Cart readCartFromJsonReader(
+            Reader reader, HashMap<String, Goods> goodsMap) {
         Cart cart = new Cart();
 
         JsonParser jsonParser =  new JsonParser();
@@ -77,14 +78,19 @@ public class Parser {
                 .parse(reader).getAsJsonArray();
 
         for (int i = 0; i < jsonBarcodeArray.size(); ++i) {
-            String item = jsonBarcodeArray.get(i).getAsString();
+            String itemText = jsonBarcodeArray.get(i).getAsString();
 
-            int pos = item.indexOf('-');
+            String barcode = itemText;
+            int count = 1;
+
+            int pos = itemText.indexOf('-');
             if (pos > 0) {
-                cart.addItem(item.substring(0, pos),
-                        Integer.valueOf(item.substring(pos + 1)));
-            } else {
-                cart.addItem(item, 1);
+                barcode = itemText.substring(0, pos);
+                count = Integer.valueOf(itemText.substring(pos + 1));
+            }
+
+            if (goodsMap.containsKey(barcode)) {
+                cart.addItem(goodsMap.get(barcode), count);
             }
         }
 
@@ -104,9 +110,10 @@ public class Parser {
                 createFileReader(path));
     }
 
-    public static Cart readCartFromJsonFile(String path)
+    public static Cart readCartFromJsonFile(
+            String path, HashMap<String, Goods> goodsMap)
             throws FileNotFoundException {
         return readCartFromJsonReader(
-                createFileReader(path));
+                createFileReader(path), goodsMap);
     }
 }

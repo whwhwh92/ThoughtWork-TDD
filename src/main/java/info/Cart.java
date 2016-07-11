@@ -7,20 +7,25 @@ import java.util.HashMap;
  */
 public class Cart {
 
-    private HashMap<String, Integer> itemMap = new HashMap<>();
+    private HashMap<String, Item> itemMap = new HashMap<>();
 
-    public void addItem(String barcode, int count) {
+    public void addItem(Goods goods, int count) {
+        String barcode = goods.getBarcode();
         if (itemMap.containsKey(barcode)) {
-            itemMap.put(barcode, itemMap.get(barcode) + count);
+            Item item = itemMap.get(barcode);
+            item.add(count);
+            itemMap.put(barcode, item);
         } else {
-            itemMap.put(barcode, count);
+            Item item = new Item(goods);
+            item.add(count);
+            itemMap.put(barcode, item);
         }
     }
 
     public int getQuantity(String barcode) {
         int count = 0;
         if (itemMap.containsKey(barcode)) {
-            count = itemMap.get(barcode);
+            count = itemMap.get(barcode).getQuantity();
         }
         return count;
     }

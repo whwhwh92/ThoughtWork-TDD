@@ -64,7 +64,7 @@ public class ParserTest {
     public void should_parse_cart_with_right_barcode_from_json_file()
             throws Exception {
         Cart cart = Parser.readCartFromJsonFile(
-                getResPath(JSON_CART));
+                getResPath(JSON_CART), TestDataBuilder.getGoodsMap());
 
         assertEquals(3, cart.getItemCount());
         assertEquals(3, cart.getQuantity("ITEM000001"));
