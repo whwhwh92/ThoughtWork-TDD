@@ -5,7 +5,9 @@ import info.Goods;
 import info.Offer;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -19,68 +21,50 @@ public class ParserTest {
     private static final String JSON_OFFER = "offer.json";
     private static final String JSON_CART = "cart.json";
 
-    private static InputStream getStream(String res) {
-        return Parser.class.getClassLoader()
-                .getResourceAsStream(res);
+    private String getResPath(String res) {
+        URL url = getClass().getClassLoader().getResource(res);
+        File file = null;
+        try {
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return file.getPath();
     }
 
     @Test
     public void should_parse_right_goods_info_from_json_file()
             throws Exception {
         HashMap<String, Goods> goodsMap = Parser
-                .readGoodsFromJsonStream(
-                        ParserTest.getStream(JSON_GOODS));
+                .readGoodsFromJsonFile(getResPath(JSON_GOODS));
         assertEquals(6, goodsMap.size());
 
-        Goods goods = goodsMap.get("ITEM000003");
-        assertNotNull(goods);
+        Goods testGoods = TestDataBuilder.getGoods();
+        Goods goods = goodsMap.get(testGoods.getBarcode());
 
-        assertEquals("ITEM000003", goods.getBarcode());
-        assertEquals("苹果", goods.getName());
-        assertEquals("食品", goods.getCategory());
-        assertEquals("水果", goods.getSubCategory());
-        assertEquals("斤", goods.getUnit());
-        assertEquals(5.50f, goods.getPrice(), 0.001f);
-    }
-
-    private static Goods genOfferGoods() {
-        Goods goods = new Goods();
-        goods.setBarcode("ITEM000001");
-        goods.setName("可口可乐");
-        goods.setCategory("食品");
-        goods.setSubCategory("饮料");
-        goods.setUnit("瓶");
-        goods.setPrice(3.00f);
-        return goods;
-    }
-
-    private static Goods genNonOfferGoods() {
-        Goods goods = new Goods();
-        goods.setBarcode("ITEM000003");
-        goods.setName("苹果");
-        goods.setCategory("食品");
-        goods.setSubCategory("水果");
-        goods.setUnit("斤");
-        goods.setPrice(5.50f);
-
-        return goods;
+        assertEquals(testGoods.getBarcode(), goods.getBarcode());
+        assertEquals(testGoods.getName(), goods.getName());
+        assertEquals(testGoods.getCategory(), goods.getCategory());
+        assertEquals(testGoods.getSubCategory(), goods.getSubCategory());
+        assertEquals(testGoods.getUnit(), goods.getUnit());
+        assertEquals(testGoods.getPrice(), goods.getPrice(), 0.001f);
     }
 
     @Test
     public void should_parse_right_offer_info_from_json_file()
             throws Exception {
-        Offer offer = Parser.readOfferFromJsonStream(
-                ParserTest.getStream(JSON_OFFER));
+        Offer offer = Parser.readOfferFromJsonFile(
+                getResPath(JSON_OFFER));
 
-        assertTrue(offer.check(ParserTest.genOfferGoods()));
-        assertFalse(offer.check(ParserTest.genNonOfferGoods()));
+        assertTrue(offer.check(TestDataBuilder.getOfferGoods()));
+        assertFalse(offer.check(TestDataBuilder.getNonOfferGoods()));
     }
 
     @Test
     public void should_parse_cart_with_right_barcode_from_json_file()
             throws Exception {
-        Cart cart = Parser.readCartFromJsonStream(
-                ParserTest.getStream(JSON_CART));
+        Cart cart = Parser.readCartFromJsonFile(
+                getResPath(JSON_CART));
 
         assertEquals(3, cart.getItemCount());
         assertEquals(3, cart.getQuantity("ITEM000001"));

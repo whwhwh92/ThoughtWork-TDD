@@ -8,9 +8,7 @@ import info.Cart;
 import info.Goods;
 import info.Offer;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
@@ -19,19 +17,24 @@ import java.util.HashMap;
  */
 public class Parser {
 
-    public static Reader createUtf8Reader(InputStream in) {
-        return new InputStreamReader(in, Charset.forName("UTF-8"));
+    public static Reader createFileReader(String jsonfile)
+            throws FileNotFoundException {
+        InputStream in = new FileInputStream(jsonfile);
+        Reader reader = new InputStreamReader(in,
+                Charset.forName("UTF-8"));
+        return reader;
     }
 
-    public static HashMap<String, Goods> readGoodsFromJsonStream(InputStream in) {
+    public static HashMap<String, Goods>
+            readGoodsFromJsonReader(Reader reader) {
         HashMap<String, Goods> goodsMap = new HashMap<>();
 
         Gson gson = new Gson();
         JsonParser jsonParser = new JsonParser();
 
-        JsonArray jsonGoodsArray = jsonParser.parse(
-                Parser.createUtf8Reader(in))
-                .getAsJsonArray();
+        JsonArray jsonGoodsArray = jsonParser
+                .parse(reader).getAsJsonArray();
+
         for (int i = 0; i < jsonGoodsArray.size(); ++i) {
             JsonObject jsonGoods = jsonGoodsArray.get(i)
                     .getAsJsonObject();
@@ -43,15 +46,14 @@ public class Parser {
         return goodsMap;
     }
 
-    public static Offer readOfferFromJsonStream(InputStream in) {
+    public static Offer readOfferFromJsonReader(Reader reader) {
         Offer offer = new Offer();
 
         JsonParser jsonParser = new JsonParser();
 
-        JsonObject jsonOffer = jsonParser.parse(
-                Parser.createUtf8Reader(in))
-                .getAsJsonArray().get(0)
-                .getAsJsonObject();
+        JsonObject jsonOffer = jsonParser
+                .parse(reader).getAsJsonArray()
+                .get(0).getAsJsonObject();
 
         if (jsonOffer.get("type").getAsString()
                 .equals("BUY_THREE_GET_ONE_FREE")) {
@@ -66,33 +68,45 @@ public class Parser {
         return offer;
     }
 
-    public static Cart readCartFromJsonStream(InputStream in) {
+    public static Cart readCartFromJsonReader(Reader reader) {
         Cart cart = new Cart();
 
         JsonParser jsonParser =  new JsonParser();
 
-        JsonArray jsonBarcodeArray = jsonParser.parse(
-                Parser.createUtf8Reader(in))
-                .getAsJsonArray();
+        JsonArray jsonBarcodeArray = jsonParser
+                .parse(reader).getAsJsonArray();
 
         for (int i = 0; i < jsonBarcodeArray.size(); ++i) {
             String item = jsonBarcodeArray.get(i).getAsString();
 
-            String barcode;
-            int count = 0;
-
             int pos = item.indexOf('-');
             if (pos > 0) {
-                barcode = item.substring(0, pos);
-                count = Integer.valueOf(item.substring(pos + 1));
+                cart.addItem(item.substring(0, pos),
+                        Integer.valueOf(item.substring(pos + 1)));
             } else {
-                barcode = item;
-                count = 1;
+                cart.addItem(item, 1);
             }
-
-            cart.addItem(barcode, count);
         }
 
         return cart;
+    }
+
+    public static HashMap<String, Goods>
+            readGoodsFromJsonFile(String path)
+            throws FileNotFoundException {
+        return readGoodsFromJsonReader(
+                createFileReader(path));
+    }
+
+    public static Offer readOfferFromJsonFile(String path)
+            throws FileNotFoundException {
+        return readOfferFromJsonReader(
+                createFileReader(path));
+    }
+
+    public static Cart readCartFromJsonFile(String path)
+            throws FileNotFoundException {
+        return readCartFromJsonReader(
+                createFileReader(path));
     }
 }
