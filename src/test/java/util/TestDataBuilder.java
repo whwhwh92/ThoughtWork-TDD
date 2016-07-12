@@ -1,7 +1,9 @@
 package util;
 
+import info.Cart;
 import info.Goods;
 import info.Offer;
+import module.POS;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,5 +63,30 @@ public class TestDataBuilder {
         offer.add("ITEM000001");
         offer.add("ITEM000005");
         return offer;
+    }
+
+    public static Cart getCartWithOfferGoods() {
+        HashMap<String, Goods> goodsMap = getGoodsMap();
+
+        Cart cart = new Cart();
+        cart.addItem(goodsMap.get("ITEM000001"), 5);
+        cart.addItem(goodsMap.get("ITEM000003"), 2);
+
+        return cart;
+    }
+
+    public static Cart getCartWithoutOfferGoods() {
+        HashMap<String, Goods> goodsMap = getGoodsMap();
+
+        Cart cart = new Cart();
+        cart.addItem(goodsMap.get("ITEM000003"), 5);
+
+        return cart;
+    }
+
+    public static POS getPOS() {
+        POS pos = new POS();
+        pos.setOffer(getOffer());
+        return pos;
     }
 }

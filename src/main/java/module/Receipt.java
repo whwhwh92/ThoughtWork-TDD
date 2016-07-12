@@ -43,7 +43,9 @@ public class Receipt {
     }
 
     public void addItemOfferInfo(String msg) {
-        offerMsgList.add(msg);
+        if (!msg.isEmpty()) {
+            offerMsgList.add(msg);
+        }
     }
 
     private String getOfferInfo() {

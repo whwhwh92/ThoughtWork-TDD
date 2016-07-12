@@ -19,13 +19,15 @@ public class Offer {
     }
 
     public float calcDiscount(Item item) {
-        float dist = 0.0f;
+        return item.getGoods().getPrice()
+                * calcOfferQuantity(item);
+    }
 
-        if (this.check(item.getGoods())) {
-            dist = item.getGoods().getPrice()
-                    * (item.getQuantity() / 3);
+    public int calcOfferQuantity(Item item) {
+        if (check(item.getGoods())) {
+            return item.getQuantity() / 3;
+        } else {
+            return 0;
         }
-
-        return dist;
     }
 }

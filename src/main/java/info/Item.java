@@ -23,4 +23,8 @@ public class Item {
     public void add(int count) {
         quantity += count;
     }
+
+    public float getOriginCost() {
+        return goods.getPrice() * quantity;
+    }
 }

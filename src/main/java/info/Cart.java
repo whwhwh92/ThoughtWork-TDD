@@ -1,6 +1,8 @@
 package info;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Sora on 2016/7/8.
@@ -32,5 +34,9 @@ public class Cart {
 
     public int getItemCount() {
         return itemMap.size();
+    }
+
+    public List<Item> getItems() {
+        return new ArrayList<>(itemMap.values());
     }
 }
