@@ -52,52 +52,15 @@ public class POS {
         return save;
     }
 
-    public String getItemInfo(Item item) {
-        return String.format(
-                "名称：%s，数量：%d%s，单价：%.2f(元)，小计：%.2f(元)",
-                item.getGoods().getName(),
-                item.getQuantity(), item.getGoods().getUnit(),
-                item.getGoods().getPrice(),
-                calcCost(item));
-    }
-
-    public String getItemOfferInfo(Item item) {
-        if (offer.check(item.getGoods())) {
-            return String.format(
-                    "名称：%s，数量：%d%s",
-                    item.getGoods().getName(),
-                    offer.calcOfferQuantity(item),
-                    item.getGoods().getUnit());
-        } else {
-            return "";
-        }
-    }
-
-    public String getTotalCostInfo(Cart cart) {
-        return String.format("总计：%.2f(元)",
-                calcCost(cart));
-    }
-
-    public String getTotalSaveInfo(Cart cart) {
-        if (calcSave(cart) > 0.0f) {
-            return String.format("节省：%.2f(元)",
-                    calcSave(cart));
-        } else {
-            return "";
-        }
-    }
-
     public Receipt getReceipt(Cart cart) {
         Receipt receipt = new Receipt();
 
         List<Item> itemList = cart.getItems();
         for (Item item : itemList) {
-            receipt.addItemCostInfo(getItemInfo(item));
-            receipt.addItemOfferInfo(getItemOfferInfo(item));
+            receipt.addItem(item, calcCost(item), calcOffer(item));
         }
 
-        receipt.setTotalCostInfo(getTotalCostInfo(cart));
-        receipt.setTotalSaveInfo(getTotalSaveInfo(cart));
+        receipt.setTotal(calcCost(cart), calcSave(cart));
 
         return receipt;
     }

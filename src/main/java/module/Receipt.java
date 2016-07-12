@@ -1,5 +1,7 @@
 package module;
 
+import info.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,5 +97,46 @@ public class Receipt {
         text += getTail();
 
         return text;
+    }
+
+    public static String itemText(Item item, float cost) {
+        return String.format(
+                "名称：%s，数量：%d%s，单价：%.2f(元)，小计：%.2f(元)",
+                item.getGoods().getName(),
+                item.getQuantity(), item.getGoods().getUnit(),
+                item.getGoods().getPrice(), cost);
+    }
+
+    public static String itemOfferText(Item item, int quan) {
+        if (quan > 0) {
+            return String.format(
+                    "名称：%s，数量：%d%s",
+                    item.getGoods().getName(),
+                    quan, item.getGoods().getUnit());
+        } else {
+            return "";
+        }
+    }
+
+    public static String totalCostText(float cost) {
+        return String.format("总计：%.2f(元)", cost);
+    }
+
+    public static String totalSaveText(float save) {
+        if (save > 0.0f) {
+            return String.format("节省：%.2f(元)", save);
+        } else {
+            return "";
+        }
+    }
+
+    public void addItem(Item item, float cost, int offer) {
+        addItemCostInfo(itemText(item, cost));
+        addItemOfferInfo(itemOfferText(item, offer));
+    }
+
+    public void setTotal(float cost, float save) {
+        setTotalCostInfo(totalCostText(cost));
+        setTotalSaveInfo(totalSaveText(save));
     }
 }

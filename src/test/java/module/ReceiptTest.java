@@ -1,6 +1,9 @@
 package module;
 
+import info.Cart;
+import info.Item;
 import org.junit.Test;
+import util.TestDataBuilder;
 
 import static org.junit.Assert.assertEquals;
 
@@ -89,5 +92,55 @@ public class ReceiptTest {
         receipt.setTotalCostInfo(R2_MSG_TOTAL);
 
         assertEquals(R2_RECEIPT, receipt.getText());
+    }
+
+    @Test
+    public void should_return_right_item_info()
+            throws Exception {
+        POS pos = TestDataBuilder.getPOS();
+
+        Item item = new Item(TestDataBuilder.getOfferGoods());
+        item.add(6);
+        assertEquals("名称：可口可乐，数量：6瓶，单价：3.00(元)，小计：12.00(元)",
+                Receipt.itemText(item, pos.calcCost(item)));
+
+        item = new Item(TestDataBuilder.getNonOfferGoods());
+        item.add(6);
+        assertEquals("名称：苹果，数量：6斤，单价：5.50(元)，小计：33.00(元)",
+                Receipt.itemText(item, pos.calcCost(item)));
+    }
+
+    @Test
+    public void should_return_right_item_offer_info()
+            throws Exception {
+        POS pos = TestDataBuilder.getPOS();
+
+        Item item = new Item(TestDataBuilder.getOfferGoods());
+        item.add(6);
+        assertEquals("名称：可口可乐，数量：2瓶",
+                Receipt.itemOfferText(item, pos.calcOffer(item)));
+
+        item = new Item(TestDataBuilder.getNonOfferGoods());
+        item.add(6);
+        assertEquals("",
+                Receipt.itemOfferText(item, pos.calcOffer(item)));
+    }
+
+    @Test
+    public void should_return_right_cost_info_for_cart()
+            throws Exception {
+        POS pos = TestDataBuilder.getPOS();
+
+        Cart cart = TestDataBuilder.getCartWithOfferGoods();
+        assertEquals("总计：23.00(元)",
+                Receipt.totalCostText(pos.calcCost(cart)));
+        assertEquals("节省：3.00(元)",
+                Receipt.totalSaveText(pos.calcSave(cart)));
+
+        cart = TestDataBuilder.getCartWithoutOfferGoods();
+        assertEquals("总计：27.50(元)",
+                Receipt.totalCostText(pos.calcCost(cart)));
+        assertEquals("",
+                Receipt.totalSaveText(pos.calcSave(cart)));
     }
 }

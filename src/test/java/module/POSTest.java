@@ -59,47 +59,31 @@ public class POSTest {
     }
 
     @Test
-    public void should_return_right_item_info()
-            throws Exception {
-        POS pos = TestDataBuilder.getPOS();
-
-        Item item = new Item(TestDataBuilder.getOfferGoods());
-        item.add(6);
-        assertEquals("名称：可口可乐，数量：6瓶，单价：3.00(元)，小计：12.00(元)",
-                pos.getItemInfo(item));
-
-        item = new Item(TestDataBuilder.getNonOfferGoods());
-        item.add(6);
-        assertEquals("名称：苹果，数量：6斤，单价：5.50(元)，小计：33.00(元)",
-                pos.getItemInfo(item));
-    }
-
-    @Test
-    public void should_return_right_item_offer_info()
-            throws Exception {
-        POS pos = TestDataBuilder.getPOS();
-
-        Item item = new Item(TestDataBuilder.getOfferGoods());
-        item.add(6);
-        assertEquals("名称：可口可乐，数量：2瓶",
-                pos.getItemOfferInfo(item));
-
-        item = new Item(TestDataBuilder.getNonOfferGoods());
-        item.add(6);
-        assertEquals("", pos.getItemOfferInfo(item));
-    }
-
-    @Test
-    public void should_return_right_cost_info_for_cart()
+    public void should_get_right_receipt_for_cart()
             throws Exception {
         POS pos = TestDataBuilder.getPOS();
 
         Cart cart = TestDataBuilder.getCartWithOfferGoods();
-        assertEquals("总计：23.00(元)", pos.getTotalCostInfo(cart));
-        assertEquals("节省：3.00(元)", pos.getTotalSaveInfo(cart));
+        assertEquals(
+                "***<没钱赚商店>购物清单***\n" +
+                "名称：可口可乐，数量：5瓶，单价：3.00(元)，小计：12.00(元)\n" +
+                "名称：苹果，数量：2斤，单价：5.50(元)，小计：11.00(元)\n" +
+                "----------------------\n" +
+                "买三免一商品：\n" +
+                "名称：可口可乐，数量：1瓶\n" +
+                "----------------------\n" +
+                "总计：23.00(元)\n" +
+                "节省：3.00(元)\n" +
+                "**********************\n",
+                pos.getReceipt(cart).getText());
 
         cart = TestDataBuilder.getCartWithoutOfferGoods();
-        assertEquals("总计：27.50(元)",  pos.getTotalCostInfo(cart));
-        assertEquals("", pos.getTotalSaveInfo(cart));
+        assertEquals(
+                "***<没钱赚商店>购物清单***\n" +
+                "名称：苹果，数量：5斤，单价：5.50(元)，小计：27.50(元)\n" +
+                "----------------------\n" +
+                "总计：27.50(元)\n" +
+                "**********************\n",
+                pos.getReceipt(cart).getText());
     }
 }
