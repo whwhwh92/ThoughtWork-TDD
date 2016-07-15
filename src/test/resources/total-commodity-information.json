@@ -1,0 +1,47 @@
+{
+  "commodity": {
+    "total_commodity_information": [
+      {
+        "barcode": "ITEM000000",
+        "name": "cokacola",
+        "unit": "瓶",
+        "category": "食品",
+        "subCategory": "碳酸饮料",
+        "price": 3.00
+      },
+      {
+        "barcode": "ITEM000001",
+        "name": "apple",
+        "unit": "个",
+        "category": "食品",
+        "subCategory": "水果",
+        "price": 2.00
+      },
+      {
+        "barcode": "ITEM000002",
+        "name": "pear",
+        "unit": "个",
+        "category": "食品",
+        "subCategory": "水果",
+        "price": 2.00
+      },
+      {
+        "barcode": "ITEM000003",
+        "name": "tomato",
+        "unit": "斤",
+        "category": "食品",
+        "subCategory": "水果",
+        "price": 3.00
+      },
+      {
+        "barcode": "ITEM000004",
+        "name": "watermelon",
+        "unit": "斤",
+        "category": "食品",
+        "subCategory": "水果",
+        "price": 5.00
+      }
+    ]
+
+  }
+}
